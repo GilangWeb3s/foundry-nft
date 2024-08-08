@@ -10,6 +10,7 @@ contract InteractMintBasicNft is Script {
 
     function run() external{
         address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment("BasicNft", block.chainid);
+        mintNftOnContract(mostRecentlyDeployed);
         
     }
 
