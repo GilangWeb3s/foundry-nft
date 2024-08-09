@@ -44,7 +44,7 @@ contract MoodNft is ERC721{
         }
     }
 
-    function _baseURI() internal view override returns (string memory){
+    function _baseURI() internal pure override returns (string memory){
         return "data:application/json;base64,";
     }
 
@@ -58,9 +58,16 @@ contract MoodNft is ERC721{
         }
         return string(
             abi.encodePacked(
+                _baseURI(),
                 Base64.encode(
-                    bytes( abi.encodePacked(
-                            '{"name": "', name(), '", "description": "A moo NFT.", "attributes": [{"trait_type": "moodines", "value": 100}], "image": "', imageURI, '"}'
+                    bytes( // bytes casting actually unnecessary as 'abi.encodePacked()' returns a bytes
+                        abi.encodePacked(
+                            '{"name":"',
+                            name(), // You can add whatever name here
+                            '", "description":"An NFT that reflects the mood of the owner, 100% on Chain!", ',
+                            '"attributes": [{"trait_type": "moodiness", "value": 100}], "image":"',
+                            imageURI,
+                            '"}'
                         )
                     )
                 )
